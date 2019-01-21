@@ -1,0 +1,6 @@
+# FILES
+*.DS_Store
+
+# FOLDERS
+audio/
+images/

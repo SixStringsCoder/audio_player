@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Super Audio Player</title>
+  </head>
+  <body>
+    <header>
+      <h1>Super Audio Player</h1>
+    </header>
+    <main>
+      <div id="audioplayer-container">
+        <section id="button-container">
+          <button id="rewindbtn"></button>
+          <button id="playpausebtn"></button>
+          <button id="forwardbtn"></button>
+          <button id="mutebtn"></button>
+        </section>
+        <section id="slider-container">
+          <label for="seekslider">SEEK</label>
+          <input id="seekslider" type="range" value="0" min="0" max="100" step="1">
+          <datalist id="volume-steplist">
+              <option>0</option>
+              <option>25</option>
+              <option>50</option>
+              <option>75</option>
+              <option>100</option>
+          </datalist>
+
+          <label for="volumeslider">VOLUME</label>
+          <input id="volumeslider" type="range" value="50" min="0" max="100" step="1">
+        </section>
+      </div>
+    </main>
+    <footer>copyright &copy; 2019 SHANLONAUDIOPLAYER</footer>
+  <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

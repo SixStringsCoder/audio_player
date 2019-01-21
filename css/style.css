@@ -1,0 +1,129 @@
+body {
+  background: #fff;
+}
+
+header, footer {
+  width: 100vw;
+  height: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid black;
+  background: gold;
+}
+
+footer {
+  position: sticky;
+  border-top: 1px solid black;
+}
+
+main {
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
+  /* background: lightgray; */
+}
+
+h1 {
+  font-family: san-serif;
+  font-size: 3rem;
+}
+
+/* AUDIO PLAYER */
+#audioplayer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  padding: 10px;
+  border: 1px solid black;
+}
+#button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#slider-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+/* #volume-steplist {
+  display: flex;
+} */
+/* input#seekslider{
+	width:300px;
+}
+input#volumeslider{
+	width: 70px;
+} */
+
+/* ===================================
+Standardize range slider for browsers
+==================================== */
+input[type='range'] {
+  -webkit-appearance: none !important;
+	margin:0px;
+	padding:0px;
+  background: #000;
+  height:13px;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-ms-fill-lower  {
+	background:#000;
+}
+input[type='range']::-ms-fill-upper  {
+	background:#000;
+}
+input[type='range']::-moz-range-track {
+	border:none;
+  background: #000;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background: radial-gradient(#FFF, #333);
+  height:11px;
+  width:11px;
+	border-radius:100%;
+	cursor:pointer;
+}
+input[type='range']::-moz-range-thumb {
+  background: radial-gradient(#FFF, #333);
+  height:11px;
+  width:11px;
+	border-radius:100%;
+	cursor:pointer;
+}
+input[type='range']::-ms-thumb {
+  -webkit-appearance: none !important;
+  background: radial-gradient(#FFF, #333);
+  height:11px;
+  width:11px;
+	border-radius:100%;
+	cursor:pointer;
+}
+
+/* Button secton */
+button { width: 80px; height: 80px; margin: 0; border:none; cursor:pointer; outline:none; opacity: .7; transition: all .4s; }
+button:hover { opacity: 1; }
+
+button#playpausebtn {
+	background:url(../images/play.png) no-repeat;
+}
+button#mutebtn {
+	background:url(../images/unmuted.png) no-repeat;
+}
+button#rewindbtn {
+  background: url(../images/rewind.png) no-repeat;
+}
+button#forwardbtn {
+  background: url(../images/forward.png) no-repeat;
+}
