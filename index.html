@@ -21,14 +21,17 @@
         <section id="slider-container">
           <label for="seekslider">SEEK</label>
           <input id="seekslider" type="range" value="0" min="0" max="100" step="1">
-          <datalist id="volume-steplist">
+          <!-- <datalist id="volume-steplist">
               <option>0</option>
               <option>25</option>
               <option>50</option>
               <option>75</option>
               <option>100</option>
-          </datalist>
-
+          </datalist> -->
+          <div id="timebox">
+            <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
+          </div>
+          
           <label for="volumeslider">VOLUME</label>
           <input id="volumeslider" type="range" value="50" min="0" max="100" step="1">
         </section>

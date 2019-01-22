@@ -59,12 +59,23 @@ h1 {
 /* #volume-steplist {
   display: flex;
 } */
-/* input#seekslider{
-	width:300px;
+input#seekslider{
+	width: 115px;
+}
+div#timebox{
+	display:inline-block;
+	width:80px;
+	background:#000;
+	text-align:center;
+	color: #FFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:11px;
+  padding: 2px 5px;
+  border-radius: 25px;
 }
 input#volumeslider{
 	width: 70px;
-} */
+}
 
 /* ===================================
 Standardize range slider for browsers
