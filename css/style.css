@@ -43,6 +43,11 @@ h1 {
   height: 200px;
   padding: 10px;
   border: 1px solid black;
+  background: #d0a45a; /* Old browsers */
+  background: -moz-linear-gradient(top, #d0a45a 0%, #ba5626 50%, #ba5626 54%, #ba5626 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #d0a45a 0%,#ba5626 50%,#ba5626 54%,#ba5626 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #d0a45a 0%,#ba5626 50%,#ba5626 54%,#ba5626 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0a45a', endColorstr='#ba5626',GradientType=0 ); /* IE6-9 */
 }
 #button-container {
   display: flex;
@@ -59,6 +64,10 @@ h1 {
 /* #volume-steplist {
   display: flex;
 } */
+
+label {
+  color: #FFF;
+}
 input#seekslider{
 	width: 115px;
 }

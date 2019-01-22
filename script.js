@@ -1,8 +1,15 @@
 var audio, playbtn, mutebtn, seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext;
+// Resolve browser MP3 incompatibility
+var ext = "mp3";
+var agent = navigator.userAgent.toLowerCase();
+if (agent.indexOf("firefox") != -1 || agent.indexOf("opr") != -1) {
+  ext = "ogg";
+}
 
 const initAudioPlayer = () => {
   audio = new Audio();
-  audio.src = "./audio/dance_tune.mp3";
+  audio.src = `./audio/dance_tune.${ext}`;
+  alert(ext);
   audio.play();
 
   //Set object references
