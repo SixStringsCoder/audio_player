@@ -1,8 +1,6 @@
-
-
 const initAudioPlayer = () => {
   var audio, ext, agent, playbtn, mutebtn, backbtn, forwardbtn,
-      seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext,
+      seekslider, volumeslider, seeking=false, seekto, curtimetext, durtimetext,
       speedlist, directory, playlist, playlist_status;
 
   directory = "audio/";
@@ -30,6 +28,8 @@ const initAudioPlayer = () => {
   // Audio Object
   audio = new Audio();
   audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
+  //Updates timebox after audio's metadata has loaded preventing 'NaN' from showing
+
   audio.loop = false;
   audio.play();
   playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
@@ -54,9 +54,12 @@ const initAudioPlayer = () => {
     // volume values are between 0 and 1 so divide value by 100
     audio.volume = event.target.value / 100;
   })
-  audio.addEventListener('timeupdate', () => seektimeupdate());
+
   speedlist.addEventListener('change', () => changeSpeed());
-  audio.addEventListener('ended', () => autoSwitchTrack())
+
+  audio.addEventListener('loadedmetadata', () => seektimeupdate());
+  audio.addEventListener('timeupdate', () => seektimeupdate());
+  audio.addEventListener('ended', () =>  autoSwitchTrack());
 
   //Functions
   const playPause = () => {
@@ -107,11 +110,7 @@ const initAudioPlayer = () => {
     if(durmins < 10){ durmins = `0${durmins}`; }
     // Format time display
 	  curtimetext.innerHTML = `${curmins}:${cursecs}`;
-    if (durtimetext === 'NaN:NaN') {
-      durtimetext.innerHTML = "00:00";
-    } else {
-      durtimetext.innerHTML = `${durmins}:${dursecs}`;
-    }
+    durtimetext.innerHTML = `${durmins}:${dursecs}`;
   }
 
   const changeSpeed = () => audio.playbackRate = speedlist.value;
@@ -123,7 +122,7 @@ const initAudioPlayer = () => {
       playlist_index += 1;
     }
     audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
-    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
+    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
     audio.play();
   }
 

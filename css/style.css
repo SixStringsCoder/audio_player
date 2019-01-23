@@ -49,6 +49,13 @@ h1 {
   background: linear-gradient(to bottom, #d0a45a 0%,#ba5626 50%,#ba5626 54%,#ba5626 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0a45a', endColorstr='#ba5626',GradientType=0 ); /* IE6-9 */
 }
+
+#playlist_status {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ecdfdf;
+}
+
 #button-container {
   display: flex;
   justify-content: center;
