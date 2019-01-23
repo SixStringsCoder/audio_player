@@ -1,28 +1,45 @@
-var audio, playbtn, mutebtn, seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext, speedlist;
-// Resolve browser MP3 incompatibility
-var ext = "mp3";
-var agent = navigator.userAgent.toLowerCase();
-if (agent.indexOf("firefox") != -1 || agent.indexOf("opr") != -1) {
-  ext = "ogg";
-}
+
 
 const initAudioPlayer = () => {
-  audio = new Audio();
-  audio.src = `./audio/dance_tune.${ext}`;
-  audio.play();
+  var audio, ext, agent, playbtn, mutebtn, backbtn, forwardbtn,
+      seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext,
+      speedlist, directory, playlist, playlist_status;
+
+  directory = "audio/";
+  playlist = ["dance_tune", "drum_roll", "coins_slot_machine"];
+  let playlist_index = 0;
+  // Resolve browser MP3 incompatibility
+  ext = "mp3";
+  agent = navigator.userAgent.toLowerCase();
+  if (agent.indexOf("firefox") != -1 || agent.indexOf("opr") != -1) {
+    ext = "ogg";
+  }
 
   //Set object references
   playbtn = document.querySelector('#playpausebtn');
   mutebtn = document.querySelector('#mutebtn');
+  backbtn = document.querySelector('#backbtn');
+  forwardbtn = document.querySelector('#forwardbtn');
   seekslider = document.querySelector('#seekslider');
   volumeslider = document.querySelector('#volumeslider');
   curtimetext = document.querySelector('#curtimetext');
   durtimetext = document.querySelector('#durtimetext');
   speedlist = document.querySelector('#speedlist');
+  playlist_status = document.querySelector('#playlist_status')
+
+  // Audio Object
+  audio = new Audio();
+  audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
+  audio.loop = false;
+  audio.play();
+  playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
+
   //Event handlers
   playbtn.addEventListener('click', () => playPause());
   mutebtn.addEventListener('click', () => mute());
-  rewindbtn.addEventListener('click', () => rewind());
+  backbtn.addEventListener('dblclick', () => rewind());
+  backbtn.addEventListener('click', () => backOneTrack());
+  forwardbtn.addEventListener('click', () => fwdOneTrack());
 
   seekslider.addEventListener('mousedown', (event) => {
     seeking = true;
@@ -33,12 +50,14 @@ const initAudioPlayer = () => {
   });
   seekslider.addEventListener('mouseup', (event) => seeking = false);
 
-  volumeslider.addEventListener('mousemove', () => {
+  volumeslider.addEventListener('mousemove', (event) => {
     // volume values are between 0 and 1 so divide value by 100
-    audio.volume = volumeslider.value / 100;
+    audio.volume = event.target.value / 100;
   })
   audio.addEventListener('timeupdate', () => seektimeupdate());
   speedlist.addEventListener('change', () => changeSpeed());
+  audio.addEventListener('ended', () => autoSwitchTrack())
+
   //Functions
   const playPause = () => {
     if (audio.paused) {
@@ -74,7 +93,8 @@ const initAudioPlayer = () => {
 
   const seektimeupdate = () => {
     let newtime = audio.currentTime * (100 / audio.duration);
-    seekslider.value = newtime;
+    seekslider.value = newtime || 0;
+
     // initialize seconds and minutes for display
     let curmins = Math.floor(audio.currentTime / 60);
     let cursecs = Math.floor(audio.currentTime - curmins * 60);
@@ -87,13 +107,50 @@ const initAudioPlayer = () => {
     if(durmins < 10){ durmins = `0${durmins}`; }
     // Format time display
 	  curtimetext.innerHTML = `${curmins}:${cursecs}`;
-    durtimetext.innerHTML = `${durmins}:${dursecs}`;
+    if (durtimetext === 'NaN:NaN') {
+      durtimetext.innerHTML = "00:00";
+    } else {
+      durtimetext.innerHTML = `${durmins}:${dursecs}`;
+    }
   }
 
-  const changeSpeed = (event) => audio.playbackRate = event.target.value;
-  
-}
+  const changeSpeed = () => audio.playbackRate = speedlist.value;
 
+  const autoSwitchTrack = () => {
+    if (playlist_index === playlist.length-1) {
+      playlist_index = 0;
+    } else {
+      playlist_index += 1;
+    }
+    audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
+    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
+    audio.play();
+  }
+
+  const backOneTrack = () => {
+    if (playlist_index === 0) {
+       playlist_index = playlist.length-1;
+     } else {
+       playlist_index -= 1;
+     }
+     audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
+     playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
+     playbtn.style.background = "url(./images/pause.png) no-repeat";
+     audio.play();
+  }
+  const fwdOneTrack = () => {
+    if (playlist_index === playlist.length-1) {
+      playlist_index = 0;
+    } else {
+      playlist_index += 1;
+    }
+    audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
+    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
+    playbtn.style.background = "url(./images/pause.png) no-repeat";
+    audio.play();
+  }
+
+}
 
 
 window.addEventListener('load', initAudioPlayer);

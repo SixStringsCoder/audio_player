@@ -149,7 +149,7 @@ button#playpausebtn {
 button#mutebtn {
 	background:url(../images/unmuted.png) no-repeat;
 }
-button#rewindbtn {
+button#backbtn {
   background: url(../images/rewind.png) no-repeat;
 }
 button#forwardbtn {
