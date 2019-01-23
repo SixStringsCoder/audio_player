@@ -31,9 +31,17 @@
           <div id="timebox">
             <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
           </div>
-          
+
           <label for="volumeslider">VOLUME</label>
           <input id="volumeslider" type="range" value="50" min="0" max="100" step="1">
+        </section>
+        <section id="playback-speed-container">
+          <label for="speedlist">PLAYBACK SPEED</label>
+          <select id="speedlist" name="playspeed">
+            <option value="0.5">Slower</option>
+            <option selected value="1">Normal</option>
+            <option value="1.5">Faster</option>
+          </select>
         </section>
       </div>
     </main>

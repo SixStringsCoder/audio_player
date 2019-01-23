@@ -85,6 +85,14 @@ div#timebox{
 input#volumeslider{
 	width: 70px;
 }
+#speedlist select {
+  display: none;
+}
+#speedlist {
+  background: black;
+  color: #FFF;
+  width: 80px;
+}
 
 /* ===================================
 Standardize range slider for browsers

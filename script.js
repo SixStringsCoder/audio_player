@@ -1,4 +1,4 @@
-var audio, playbtn, mutebtn, seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext;
+var audio, playbtn, mutebtn, seekslider, volumeslider, seeking, seekto, curtimetext, durtimetext, speedlist;
 // Resolve browser MP3 incompatibility
 var ext = "mp3";
 var agent = navigator.userAgent.toLowerCase();
@@ -9,7 +9,6 @@ if (agent.indexOf("firefox") != -1 || agent.indexOf("opr") != -1) {
 const initAudioPlayer = () => {
   audio = new Audio();
   audio.src = `./audio/dance_tune.${ext}`;
-  alert(ext);
   audio.play();
 
   //Set object references
@@ -19,6 +18,7 @@ const initAudioPlayer = () => {
   volumeslider = document.querySelector('#volumeslider');
   curtimetext = document.querySelector('#curtimetext');
   durtimetext = document.querySelector('#durtimetext');
+  speedlist = document.querySelector('#speedlist');
   //Event handlers
   playbtn.addEventListener('click', () => playPause());
   mutebtn.addEventListener('click', () => mute());
@@ -36,10 +36,9 @@ const initAudioPlayer = () => {
   volumeslider.addEventListener('mousemove', () => {
     // volume values are between 0 and 1 so divide value by 100
     audio.volume = volumeslider.value / 100;
-    console.log(volumeslider.value, event.target.value);
   })
   audio.addEventListener('timeupdate', () => seektimeupdate());
-
+  speedlist.addEventListener('change', () => changeSpeed());
   //Functions
   const playPause = () => {
     if (audio.paused) {
@@ -74,7 +73,6 @@ const initAudioPlayer = () => {
   }
 
   const seektimeupdate = () => {
-    console.log(audio.currentTime, audio.duration);
     let newtime = audio.currentTime * (100 / audio.duration);
     seekslider.value = newtime;
     // initialize seconds and minutes for display
@@ -91,6 +89,9 @@ const initAudioPlayer = () => {
 	  curtimetext.innerHTML = `${curmins}:${cursecs}`;
     durtimetext.innerHTML = `${durmins}:${dursecs}`;
   }
+
+  const changeSpeed = (event) => audio.playbackRate = event.target.value;
+  
 }
 
 
