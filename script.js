@@ -1,5 +1,5 @@
 const initAudioPlayer = () => {
-  var audio, ext, agent, playbtn, mutebtn, backbtn, forwardbtn,
+  var audio, ext, agent, mylist, playbtn, mutebtn, backbtn, forwardbtn,
       seekslider, volumeslider, seeking=false, seekto, curtimetext, durtimetext,
       speedlist, directory, playlist, playlist_status;
 
@@ -14,6 +14,7 @@ const initAudioPlayer = () => {
   }
 
   //Set object references
+  mylist = document.querySelector('#mylist');
   playbtn = document.querySelector('#playpausebtn');
   mutebtn = document.querySelector('#mutebtn');
   backbtn = document.querySelector('#backbtn');
@@ -23,7 +24,8 @@ const initAudioPlayer = () => {
   curtimetext = document.querySelector('#curtimetext');
   durtimetext = document.querySelector('#durtimetext');
   speedlist = document.querySelector('#speedlist');
-  playlist_status = document.querySelector('#playlist_status')
+  playlist_status = document.querySelector('#playlist_status');
+
 
   // Audio Object
   audio = new Audio();
@@ -35,6 +37,7 @@ const initAudioPlayer = () => {
   playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
 
   //Event handlers
+  mylist.addEventListener('change', () => selectTrack(event));
   playbtn.addEventListener('click', () => playPause());
   mutebtn.addEventListener('click', () => mute());
   backbtn.addEventListener('dblclick', () => rewind());
@@ -114,6 +117,13 @@ const initAudioPlayer = () => {
   }
 
   const changeSpeed = () => audio.playbackRate = speedlist.value;
+
+  const selectTrack = (event) => {
+    let trackID = event.target.children.id;
+    audio.src = `./${directory}/${event.target.value}.${ext}`;
+    playlist_status.innerHTML = `${event.target.children[2].innerHTML}`;
+    console.log(event, trackID);
+  }
 
   const autoSwitchTrack = () => {
     if (playlist_index === playlist.length-1) {
