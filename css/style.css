@@ -50,7 +50,7 @@ h1 {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0a45a', endColorstr='#ba5626',GradientType=0 ); /* IE6-9 */
 }
 
-#playlist_status {
+#whatsPlayingHeading {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ecdfdf;

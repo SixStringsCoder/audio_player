@@ -12,7 +12,7 @@
     </header>
     <main>
       <div id="audioplayer-container">
-        <h3 id="playlist_status"></h3>
+        <h3 id="whatsPlayingHeading"></h3>
 
         <section id="button-container">
           <button id="backbtn"></button>
@@ -20,6 +20,8 @@
           <button id="forwardbtn"></button>
           <button id="mutebtn"></button>
         </section>
+
+        <!-- Sliders area - seek and volume -->
         <section id="slider-container">
           <label for="seekslider">SEEK</label>
           <input id="seekslider" type="range" value="0" min="0" max="100" step="1">
@@ -37,20 +39,22 @@
           <label for="volumeslider">VOLUME</label>
           <input id="volumeslider" type="range" value="50" min="0" max="100" step="1">
         </section>
-        <section id="playback-speed-container">
-          <label for="speedlist">PLAYBACK SPEED</label>
-          <select id="speedlist" name="playspeed">
-            <option value="0.5">Slower</option>
-            <option selected value="1">Normal</option>
-            <option value="1.5">Faster</option>
-          </select>
-        </section>
+        <!-- Select a Track Menu -->
         <section id="playback-speed-container">
           <label for="speedlist">Pick a Song</label>
           <select id="mylist" name="songlist" size="1">
             <option id="0" value="dance_tune">Dance Tune</option>
             <option id="1" value="drum_roll">Drum</option>
             <option id="2" value="coins_slot_machine">Winner</option>
+          </select>
+        </section>
+        <!--Control playback speed menu -->
+        <section id="playback-speed-container">
+          <label for="speedlist">PLAYBACK SPEED</label>
+          <select id="speedlist" name="playspeed">
+            <option value="0.5">Slower</option>
+            <option selected value="1">Normal</option>
+            <option value="1.5">Faster</option>
           </select>
         </section>
       </div>

@@ -1,7 +1,7 @@
 const initAudioPlayer = () => {
   var audio, ext, agent, mylist, playbtn, mutebtn, backbtn, forwardbtn,
       seekslider, volumeslider, seeking=false, seekto, curtimetext, durtimetext,
-      speedlist, directory, playlist, playlist_status;
+      speedlist, directory, playlist, whatsPlayingHeading;
 
   directory = "audio/";
   playlist = ["dance_tune", "drum_roll", "coins_slot_machine"];
@@ -24,7 +24,7 @@ const initAudioPlayer = () => {
   curtimetext = document.querySelector('#curtimetext');
   durtimetext = document.querySelector('#durtimetext');
   speedlist = document.querySelector('#speedlist');
-  playlist_status = document.querySelector('#playlist_status');
+  whatsPlayingHeading = document.querySelector('#whatsPlayingHeading');
 
 
   // Audio Object
@@ -34,7 +34,7 @@ const initAudioPlayer = () => {
 
   audio.loop = false;
   audio.play();
-  playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
+  whatsPlayingHeading.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`
 
   //Event handlers
   mylist.addEventListener('change', () => selectTrack(event));
@@ -119,10 +119,18 @@ const initAudioPlayer = () => {
   const changeSpeed = () => audio.playbackRate = speedlist.value;
 
   const selectTrack = (event) => {
-    let trackID = event.target.children.id;
+    let trackID;
+    for (let i = 0; i < mylist.length; i++){
+      if (mylist.children[i].value === event.target.value) {
+        let option = mylist.children[i];
+        // Get <option> id for whatsPlayingHeading.innerHTML
+        trackID = parseInt(option.id);
+      }
+    }
     audio.src = `./${directory}/${event.target.value}.${ext}`;
-    playlist_status.innerHTML = `${event.target.children[2].innerHTML}`;
-    console.log(event, trackID);
+    // Use <option> id to get innerHTML to show which track is playing
+    whatsPlayingHeading.innerHTML = `${event.target.children[trackID].innerHTML}`;
+    playbtn.style.background = "url(./images/play.png) no-repeat";
   }
 
   const autoSwitchTrack = () => {
@@ -132,7 +140,7 @@ const initAudioPlayer = () => {
       playlist_index += 1;
     }
     audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
-    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
+    whatsPlayingHeading.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
     audio.play();
   }
 
@@ -143,7 +151,7 @@ const initAudioPlayer = () => {
        playlist_index -= 1;
      }
      audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
-     playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
+     whatsPlayingHeading.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
      playbtn.style.background = "url(./images/pause.png) no-repeat";
      audio.play();
   }
@@ -154,7 +162,7 @@ const initAudioPlayer = () => {
       playlist_index += 1;
     }
     audio.src = `./${directory}/${playlist[playlist_index]}.${ext}`;
-    playlist_status.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
+    whatsPlayingHeading.innerHTML = `Track ${playlist_index+1}: ${playlist[playlist_index]}`;
     playbtn.style.background = "url(./images/pause.png) no-repeat";
     audio.play();
   }
